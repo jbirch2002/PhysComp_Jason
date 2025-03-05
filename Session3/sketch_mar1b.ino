@@ -1,6 +1,6 @@
 // SESSION 3 ASSIGNMENT
 
-int ledPins[] = {5, 6, 7};
+int ledPins[] = {5, 6, 7, 8};
 int numLEDs = 4;
 
 int patternIncrementor = 1;
