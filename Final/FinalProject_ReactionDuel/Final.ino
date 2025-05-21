@@ -151,59 +151,57 @@ void loop() {
     if (p1Reacted && p2Reacted) break;
   }
 
+  if (!p1Reacted) t1 = millis() - tStart;
+  if (!p2Reacted) t2 = millis() - tStart;
+
   if (p1Reacted && p2Reacted)
   {
-    if (t1 < t2) 
-    {
-      Serial.print("RESULT:PLAYER1_WIN,");
-      Serial.print(t1);
-      Serial.print(",");
-      Serial.println(t2);
-      flashLED(player1BlueLED, 500);
-      flashLED(player2RedLED, 500);
+    if (t1 < t2) { Serial.print("RESULT:PLAYER1_WIN,"); } 
+    else if (t2 < t1) { Serial.print("RESULT:PLAYER2_WIN,"); } 
+    else { Serial.print("RESULT:DRAW,"); }
+    Serial.print(t1);
+    Serial.print(",");
+    Serial.println(t2);
+
+
+    if (t1 < t2)
+    { 
+      flashLED(player1BlueLED,500); 
+      flashLED(player2RedLED,500);
     }
     else if (t2 < t1)
     {
-      Serial.print("RESULT:PLAYER2_WIN,");
-      Serial.print(t2);
-      Serial.print(",");
-      Serial.println(t1);
-      flashLED(player2BlueLED, 500);
-      flashLED(player1RedLED, 500);
+      flashLED(player2BlueLED,500);
+      flashLED(player1RedLED,500);
     }
-    else 
-    {
-      Serial.print("RESULT:DRAW,");
-      Serial.print(t1);
-      Serial.print(",");
-      Serial.println(t2);
-      flashLED(drawLED, 500);
-    }
+    else { flashLED(drawLED,500); }
   }
+
   else if (p1Reacted) 
   {
     Serial.print("RESULT:PLAYER1_WIN,");
     Serial.print(t1);
     Serial.print(",");
-    Serial.println(-1);
-    flashLED(player1BlueLED, 500);
-    flashLED(player2RedLED, 500);
+    Serial.println(t2);
+    flashLED(player1BlueLED,500);
+    flashLED(player2RedLED,500);
   }
+
   else if (p2Reacted) 
   {
     Serial.print("RESULT:PLAYER2_WIN,");
-    Serial.print(t2);
+    Serial.print(t1); 
     Serial.print(",");
-    Serial.println(-1);
-    flashLED(player2BlueLED, 500);
-    flashLED(player1RedLED, 500);
+    Serial.println(t2);
+    flashLED(player2BlueLED,500);
+    flashLED(player1RedLED,500);
   }
   else 
   {
     Serial.print("RESULT:NO_REACTION,");
-    Serial.print(-1);
+    Serial.print(t1);
     Serial.print(",");
-    Serial.println(-1);
+    Serial.println(t2);
     flashLED(player1RedLED, 500);
     flashLED(player2RedLED, 500);
   }
